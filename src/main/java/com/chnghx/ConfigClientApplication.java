@@ -14,16 +14,19 @@ public class ConfigClientApplication {
 		SpringApplication.run(ConfigClientApplication.class, args);
 	}
 	
+	@Value("${server.port}")
+	int port;
+	
 	/**
 	 * 
-	 * config-client从config-server获取了foo的属性，而config-server是从git仓库读取的
+	 * config-client从config-server获取了cfg的属性，而config-server是从git仓库读取的
 	 * 
-	 * 返回从配置中心读取的foo变量的值
+	 * 返回从配置中心读取的cfg变量的值
 	 */
-	@Value("${foo}")
-    String foo;
-    @RequestMapping(value = "/hi")
+	@Value("${cfg}")
+    String cfg;
+    @RequestMapping(value = "/c", produces="text/plain;charset=UTF-8")
     public String hi(){
-        return foo;
+        return cfg + ", port : " + port;
     }
 }
